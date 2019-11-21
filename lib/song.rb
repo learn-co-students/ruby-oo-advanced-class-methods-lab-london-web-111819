@@ -46,10 +46,23 @@ class Song
   end
 
   def self.alphabetical
-    
+    @@all.sort_by do |word|
+      word.name
+    end
   end
 
   def self.new_from_filename(format)
-    
+    new_song = Song.new
+    new_song.name = format.split(/\s*[-.]\s*/)[1]
+    new_song.artist_name = format.split(/\s*[-.]\s*/)[0]
+    new_song
+  end
+
+  def self.create_from_filename(format)
+    @@all.push(new_from_filename(format))
+  end
+
+  def self.destroy_all
+    @@all.clear
   end
 end
